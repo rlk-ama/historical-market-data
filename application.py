@@ -69,7 +69,7 @@ def _format_market_data(market_data, market, sparkline_length):
     formatted_data["base_currency"] = parsed_market["base_currency"]
     formatted_data["market_currency"] = parsed_market["market_currency"]
     if market_data:
-        formatted_data["last"] = market_data[-1]
+        formatted_data["last"] = "{0:.2f}".format(market_data[-1])
         if len(market_data) >= sparkline_length:
             formatted_data["sparkline"] = market_data[-sparkline_length:] 
         all_emas = _get_emas(market_data, 60*60/FREQ_MARKET_DATA_UPDATE)
