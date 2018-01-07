@@ -1,0 +1,48 @@
+{% extends "index.html" %}
+{% block content %}
+<div id="overview">
+  <section class="section">
+    <div class="container">
+      <div class="columns">
+        <div class="column">
+          <h1 class="title">Market overview</h1>
+        </div> 
+        <div class="column">
+          <a class="button is-primary"v-on:click="updateMarkets">${ marketUpdate }</a>
+        </div>
+      </div>
+    </div>
+  </section>
+<section class="section" v-for="market in markets">
+    <div class="container">
+      <h2 class="title">${ market.base_currency || '-' } market data<h2>
+      <table class="table is-striped">
+        <thead>
+          <tr>
+            <th>Currency</th>
+            <th>Last ask (USD)</th>
+            <th>Relative to 1h EMA (%)</th>
+            <th>Sparkline (last 90 minutes)</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr v-for="currency in market.currencies">
+              <th>${ currency.market_currency || "-" }</th>
+              <td>${ currency.last || "-" }</td>
+              <td>${ currency.relative_to_1h_ema || "-" }</td>
+              <td>
+                <trend
+                  :data="currency.sparkline"
+                  :gradient="['#000000']"
+                  auto-draw
+                  smooth>
+                </trend>
+              </td>
+            </tr>
+         </tbody>
+      </table>
+    </div>
+  </section>
+</div>
+<script type="text/javascript" src="{{ url_for('static', filename='overview.js') }}"></script>
+{% endblock %}

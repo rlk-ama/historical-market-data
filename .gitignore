@@ -1,0 +1,7 @@
+config.py
+__pycache__
+cryptodumps/*
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
