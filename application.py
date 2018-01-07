@@ -107,9 +107,10 @@ def market_overview():
         print("Finished processing {} market data".format(market))
     print("Finished processing all market data in {} seconds".format(time.time()-start_time))
     all_markets = sorted(all_market_data.keys())
-    flattened_market_data = [
-        {"base_currency": base_currency, "currencies": all_market_data[base_currency]} \
-        for base_currency in all_markets]
+    flattened_market_data = [{
+        "base_currency": base_currency,
+        "currencies": sorted(all_market_data[base_currency], key=lambda x: -float(x["relative_to_1h_ema"]))} \
+            for base_currency in all_markets]
     return jsonify({"success": True, "markets": flattened_market_data})
 
 @application.route('/')
